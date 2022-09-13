@@ -35,7 +35,7 @@ public class Magpie2
         String response = "";
         String trims = statement.trim();
          String s1 = statement.trim();
-            int a= s1.length();
+            
             
         
         if(trims.length() < 1 ) {
