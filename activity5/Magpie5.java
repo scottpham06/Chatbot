@@ -40,9 +40,9 @@ public class Magpie5
             response = "Say something, please.";
         }
 
-        else if (findKeyword(statement, "no") >= 0)
+        else if (findKeyword(statement, "your") >= 0 && (findKeyword(statement, "name") >=0))
         {
-            response = "Why so negative?";
+            response = "I am Dalai Lama";
         }
         else if (findKeyword(statement, "mother") >= 0
                 || findKeyword(statement, "father") >= 0
