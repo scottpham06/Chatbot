@@ -40,9 +40,29 @@ public class Magpie5
             response = "Say something, please.";
         }
 
-        else if (findKeyword(statement, "your") >= 0 && (findKeyword(statement, "name") >=0))
+        else if (findKeyword(statement, "your") >= 0 && (findKeyword(statement, "name") >=0 || (findKeyword(statement, "who") >=0 && (findKeyword(statement, "you") >=0))))
         {
-            response = "I am Dalai Lama";
+            response = "I am the 14th Dalai Lama. My name is Gyalwa Rinpoche ";
+        }
+        else if (findKeyword(statement, "you") >=0 && (findKeyword(statement, "famous") >=0))
+        {
+            response = "I am the head state and spirtual leader of the Tibetan government. Also the head monk of Tibetan Buddhism.";
+        }
+        else if (findKeyword(statement, "marriage") >=0 || (findKeyword(statement, "married")>= 0) || (findKeyword(statement, "wife") >=0))
+        {
+            response = "I am not married";
+        }
+        else if (findKeyword(statement, "children") >= 0 || (findKeyword(statement, "kids") >= 0))
+        {
+            response = "I do not have any kids";
+        }
+        else if (findKeyword(statement, "live") >=0)
+        {
+            response = "I live in McLeod Ganj, India";
+        }
+        else if (findKeyword(statement, "from") >=0 || (findKeyword(statement, "born") >=0))
+        {
+            response = "I am from Taktser, China";
         }
         else if (findKeyword(statement, "mother") >= 0
                 || findKeyword(statement, "father") >= 0
