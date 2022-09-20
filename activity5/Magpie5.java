@@ -40,7 +40,8 @@ public class Magpie5
             response = "Say something, please.";
         }
 
-        else if (findKeyword(statement, "your") >= 0 && (findKeyword(statement, "name") >=0 || (findKeyword(statement, "who") >=0 && (findKeyword(statement, "you") >=0))))
+        else if (findKeyword(statement, "your") >= 0 && (findKeyword(statement, "name") >=0) 
+        || (findKeyword(statement, "who") >=0 && (findKeyword(statement, "you") >=0)))
         {
             response = "I am the 14th Dalai Lama. My name is Gyalwa Rinpoche ";
         }
@@ -60,16 +61,27 @@ public class Magpie5
         {
             response = "I live in McLeod Ganj, India";
         }
-        else if (findKeyword(statement, "from") >=0 || (findKeyword(statement, "born") >=0))
+        else if (findKeyword(statement, "from") >=0 || (findKeyword(statement, "where") >=0 && (findKeyword(statement, "born") >=0)))
         {
             response = "I am from Taktser, China";
         }
-        else if (findKeyword(statement, "mother") >= 0
-                || findKeyword(statement, "father") >= 0
-                || findKeyword(statement, "sister") >= 0
-                || findKeyword(statement, "brother") >= 0)
+        //else if (findKeyword(statement, "mother") >= 0
+            //    || findKeyword(statement, "father") >= 0
+            //    || findKeyword(statement, "sister") >= 0
+             //   || findKeyword(statement, "brother") >= 0)
+      //  {
+           // response = "Tell me more about your family.";
+       // }
+        else if (findKeyword(statement, "old") >=0 && (findKeyword(statement, "you") >=0)
+        || (findKeyword(statement, "your") >=0 && (findKeyword(statement,"age")>=0)
+        || (findKeyword(statement, "your") >=0 && (findKeyword(statement, "birthday") >=0)
+        || (findKeyword(statement, "when")>=0 && (findKeyword(statement, "you") >=0 && (findKeyword(statement, "born")>= 0))))))
         {
-            response = "Tell me more about your family.";
+            response = "I was born in July 6, 1935. I am currently 87 years old.";
+        }
+        else if (findKeyword(statement, "siblings") >=0 || (findKeyword(statement, "family") >=0))
+        {
+            response = "I have six siblings";
         }
 
         // Responses which require transformations
@@ -82,7 +94,7 @@ public class Magpie5
         {
             response = transformIWantStatement(statement);
         }
-
+    
         else
         {
 
@@ -95,6 +107,11 @@ public class Magpie5
             {
                 response = transformYouMeStatement(statement);
             }
+              else if (findKeyword(statement, "Do you", 0) >= 0)
+        {
+            response = transformDoYouStatement(statement);
+        }
+            
             else
             {
                 //  Part of student solution
@@ -161,6 +178,24 @@ public class Magpie5
         return "Would you really be happy if you had " + restOfStatement + "?";
     }
     
+    private String transformDoYouStatement(String statement)
+    {
+        statement = statement.trim();
+        String lastChar = statement.substring(statement
+                .length() - 1);
+        if (lastChar.equals("."))
+        {
+            statement = statement.substring(0, statement
+                    .length() - 1);
+        }
+        
+        int psnOfYou = findKeyword (statement, "Do you", 0);
+      //  int psnOfMe = findKeyword (statement, "you", psnOfYou + 2);
+        
+        String restOfStatement = statement.substring(psnOfYou + 6).trim();
+        return "What makes you think that I " + restOfStatement + "?";
+    }
+    
     /**
      * Take a statement with "you <something> me" and transform it into 
      * "What makes you think that I <something> you?"
@@ -180,7 +215,7 @@ public class Magpie5
         }
         
         int psnOfYou = findKeyword (statement, "you", 0);
-        int psnOfMe = findKeyword (statement, "me", psnOfYou + 3);
+       int psnOfMe = findKeyword (statement, "me", psnOfYou + 3);
         
         String restOfStatement = statement.substring(psnOfYou + 3, psnOfMe).trim();
         return "What makes you think that I " + restOfStatement + " you?";
